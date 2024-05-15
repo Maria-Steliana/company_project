@@ -40,7 +40,7 @@ def execute_query(sql_query: str, config: dict):
 
 
 if __name__ == '__main__':
-    budget_gap = 0.8
+
     MENU = """
      1. Show all employees
      2. Show all employees by department
@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
         case "4":
             emp = {}
-            emps = read_from_database("select emp_id, name from company.employees", config)
+            emps = read_from_database("select emp_id, name, salary from company.employees", config)
             for emp in emps:
                 print(f"{emp['emp_id']}. {emp['name']}")
             emp_pick = input()
@@ -109,7 +109,8 @@ if __name__ == '__main__':
             emp_pick = input()
             consent = input("Are you sure you want to fire this employee? Y/N ")
             if consent.lower() == "y":
-                execute_query(f"DELETE from company.employees where emp_id = {emp_pick}", config)
+                response = execute_query(f"DELETE from company.employees where emp_id = {emp_pick}", config)
+                print(response)
 
         case _:
             pass
